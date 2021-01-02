@@ -11,22 +11,26 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @*<form asp-action="Create">*@
+        @using (Html.BeginForm("Create", "Students", new { area= "School" }))
+        {
+            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
             <div class="form-group">
                 <label asp-for="StudentName" class="control-label"></label>
-                <input asp-for="StudentName" class="form-control" />
+                <input name="StudentName" class="form-control" />
                 <span asp-validation-for="StudentName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ContactNo" class="control-label"></label>
-                <input asp-for="ContactNo" class="form-control" />
+                <input name="ContactNo" class="form-control" />
                 <span asp-validation-for="ContactNo" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-        </form>
+        }
+
+        @*</form>*@
     </div>
 </div>
 
