@@ -33,9 +33,11 @@
                 @Html.DisplayFor(modelItem => item.ContactNo)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a href="/School/Students/Edit" class="btn btn-primary">Edit</a>
+                @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a>*@ |
+            <a href="/School/Students/Details" class="btn btn-primary">Detail</a>
+                
+                <a href="/School/Students/Delete" class="btn btn-danger">Delete</a>
             </td>
         </tr>
 }

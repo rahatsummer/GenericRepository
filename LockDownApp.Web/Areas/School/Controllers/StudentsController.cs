@@ -67,7 +67,7 @@ namespace LockDownApp.Web.Areas.School.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create( StudentViewModel studentViewModel)
         {
             if (ModelState.IsValid)
@@ -92,21 +92,23 @@ namespace LockDownApp.Web.Areas.School.Controllers
             }
 
             var student = await _context.Students.FindAsync(id);
-            if (student == null)
+            StudentViewModel vm = new StudentViewModel();
+            vm.Id = student.Id;
+            vm.StudentName = student.StudentName;
+            vm.ContactNo = student.ContactNo;
+            if (vm == null)
             {
                 return NotFound();
             }
-            return View(student);
+            return View(vm);
         }
 
-        // POST: School/Students/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,StudentName,ContactNo")] Student student)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,StudentName,ContactNo")] StudentViewModel studentVM)
         {
-            if (id != student.Id)
+            
+            if (id != studentVM.Id)
             {
                 return NotFound();
             }
@@ -115,12 +117,16 @@ namespace LockDownApp.Web.Areas.School.Controllers
             {
                 try
                 {
+                    Student student = new Student();
+                    student.Id = studentVM.Id;
+                    student.StudentName = studentVM.StudentName;
+                    student.ContactNo = studentVM.ContactNo;
                     _context.Update(student);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StudentExists(student.Id))
+                    if (!StudentExists(studentVM.Id))
                     {
                         return NotFound();
                     }
@@ -131,7 +137,7 @@ namespace LockDownApp.Web.Areas.School.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(student);
+            return View(studentVM);
         }
 
         // GET: School/Students/Delete/5

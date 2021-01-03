@@ -1,4 +1,4 @@
-﻿@model LockDownApp.Web.Models.SchoolModels.Student
+﻿@model LockDownApp.Web.ViewModels.SchoolViewModel.StudentViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -11,28 +11,34 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+        @*<form asp-action="Edit">*@
+        @using (Html.BeginForm("Edit", "Students", new { area = "School" }))
+        {
+            
+            @Html.HiddenFor(model => model.Id)
+
+            @*<input type="hidden" asp-for="Id" />*@
             <div class="form-group">
-                <label asp-for="StudentName" class="control-label"></label>
-                <input asp-for="StudentName" class="form-control" />
-                <span asp-validation-for="StudentName" class="text-danger"></span>
+                @Html.LabelFor(m => m.StudentName)
+                @Html.TextBoxFor(m => m.StudentName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.StudentName, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                <label asp-for="ContactNo" class="control-label"></label>
-                <input asp-for="ContactNo" class="form-control" />
-                <span asp-validation-for="ContactNo" class="text-danger"></span>
+                @Html.LabelFor(m => m.ContactNo)
+                @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ContactNo, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
-        </form>
+        }
+
+        @*</form>*@
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a href="/School/Students/Index">Back to List</a>
 </div>
 
 @section Scripts {
