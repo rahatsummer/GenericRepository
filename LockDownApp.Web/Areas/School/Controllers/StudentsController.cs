@@ -31,6 +31,7 @@ namespace LockDownApp.Web.Areas.School.Controllers
                 StudentViewModel studentVM = new StudentViewModel();
                 studentVM.StudentName = x.StudentName;
                 studentVM.ContactNo = x.ContactNo;
+                studentVM.Id = x.Id;
                 lstStudent.Add(studentVM);
             }
 
